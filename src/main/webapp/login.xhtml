@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+    <h:body>
+    	<h2>This is the custom login page. You can define whatever you want here.</h2>
+    
+		<h:form id="loginForm" prependId="false">
+				<!-- Messages must be global here, to show bad credentials -->
+				<h:messages globalOnly="true"/>
+				
+				<!-- Id's must not be changed to support spring security check -->
+				<h:panelGrid columns="3">
+					<h:outputLabel for="j_username" value="User: * " />  
+					<h:inputText id="j_username"  
+			            required="true" label="username"
+			            />  
+			    	<h:message for="j_username" display="text" style="color:red"/>
+			    	
+			    	<h:outputLabel for="j_password" value="Password: * " />  
+					<h:inputSecret id="j_password" label="password"
+			            required="true"
+			            />  
+			    	<h:message for="j_password" display="text" style="color:red"/>
+			    	
+			    	<h:outputLabel for="_spring_security_remember_me" value="Remember me: " />
+					<h:selectBooleanCheckbox
+						id="_spring_security_remember_me" />        
+				</h:panelGrid>
+			
+			<h:commandButton type="submit" id="login" value="Login" action="#{loginController.doLogin}" />
+		</h:form>
+    </h:body>
+	</ui:define>
+</ui:composition>

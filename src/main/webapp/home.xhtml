@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		
+		<h1><h:outputText value="Welcome Page"/></h1>
+		<br />
+		
+		<p>
+			Navigate to the <h:link value="account page" outcome="account" /> if you logon with rod:koala because he
+			has the permission "Show Account Page".
+		</p>
+		<p>
+			If you logon with peter:opal you can't access the <h:link value="account page" outcome="account" />, but can access the 
+			<h:link value="protected page" outcome="protected" />.
+		</p>
+		<p>
+			<p><a href="j_spring_security_logout">Logout</a></p>
+		</p>
+
+	</ui:define>
+</ui:composition>

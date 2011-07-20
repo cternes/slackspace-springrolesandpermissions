@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="de.slackspace.tutorials.rolespermissions" />
+	
+	<import resource="db.xml" />
+	
+	<bean id="jdbcUserService" 
+		class="de.slackspace.tutorials.rolespermissions.security.SpringSecurityDaoImpl">
+		  <property name="dataSource" ref="dataSource"/>
+		  <property name="enableGroups" value="true" />
+		  <property name="enableAuthorities" value="false" />
+		  <property name="groupAuthoritiesByUsernameQuery">
+		    <value>SELECT R.ID, R.NAME, P.NAME
+					FROM ROLES R 
+					JOIN ROLE_MEMBERS RM on R.id = RM.roles_id
+					JOIN USERS U on U.id = RM.members_id
+					JOIN ROLE_PERMISSIONS RP ON RP.roles_id = R.id
+					JOIN PERMISSIONS P ON P.id = RP.permissions_id
+					WHERE U.username=?
+		    </value>
+		  </property>
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+	  <property name="driverClassName" value="${db.driver}" />
+	  <property name="url" value="${db.url}" />
+	  <property name="username" value="${db.username}" />
+	  <property name="password" value="${db.password}" />
+	</bean>	
+</beans>
