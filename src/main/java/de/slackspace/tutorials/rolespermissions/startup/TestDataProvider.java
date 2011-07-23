@@ -26,11 +26,11 @@ public class TestDataProvider implements InitializingBean {
 	}
 
 	private void deleteExistingData(JdbcTemplate jdbcTemplate) {
-		jdbcTemplate.execute("drop table role_members");
-		jdbcTemplate.execute("drop table role_permissions");
-		jdbcTemplate.execute("drop table permissions");
-		jdbcTemplate.execute("drop table roles");
-		jdbcTemplate.execute("drop table users");
+		jdbcTemplate.execute("drop table role_members IF EXISTS");
+		jdbcTemplate.execute("drop table role_permissions IF EXISTS");
+		jdbcTemplate.execute("drop table permissions IF EXISTS");
+		jdbcTemplate.execute("drop table roles IF EXISTS");
+		jdbcTemplate.execute("drop table users IF EXISTS");
 	}
 
 	private void createData(JdbcTemplate jdbcTemplate) {
